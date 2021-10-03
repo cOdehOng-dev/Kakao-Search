@@ -33,7 +33,7 @@ abstract class BaseActivity<T : ViewDataBinding> constructor(@LayoutRes private 
 
     abstract fun bindingProperty()
 
-    override fun onClick(v: View?) {
+    override fun onClick(v: View) {
 
     }
 

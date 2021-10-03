@@ -10,6 +10,7 @@
         android:id="@+id/accuracy_radio_button"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:checked="true"
         android:button="@null"
         android:background="@drawable/filter_radio"/>
 

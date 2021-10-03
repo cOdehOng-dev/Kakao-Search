@@ -20,19 +20,28 @@ class IntegrateFragment : BaseFragment<IntegrateFragmentBinding>(R.layout.integr
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        blogApiCall()
+        //blogApiCall()
         return binding.root
     }
 
     override fun observeViewModel() {
         viewModel.mainBlogModel.observe(this) {
-            binding.blogListAdapter = BlogListAdapter(it.blogContentList)
+            binding.blogListAdapter?.refreshList(it.blogContentList, true)
+                ?: run {
+                    binding.blogListAdapter = BlogListAdapter(it.blogContentList)
+                }
         }
+
+        viewModel.filter.observe(this) {
+            viewModel.blogSearch("박스터", viewModel.filter.value!!, 1, 30)
+        }
+
     }
 
 
     private fun blogApiCall() {
         viewModel.blogSearch("박스터", "accuracy", 1, 30)
     }
+
 
 }

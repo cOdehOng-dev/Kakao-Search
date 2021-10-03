@@ -1,20 +1,24 @@
 package com.c0de_h0ng.kakaosearch.ui.scene.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.activity.viewModels
 import com.c0de_h0ng.kakaosearch.R
 import com.c0de_h0ng.kakaosearch.base.BaseActivity
+import com.c0de_h0ng.kakaosearch.common.Constants.ACCURACY
+import com.c0de_h0ng.kakaosearch.common.Constants.RECENCY
 import com.c0de_h0ng.kakaosearch.databinding.ActivityMainBinding
 import com.c0de_h0ng.kakaosearch.ui.scene.main.adapter.MainPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), RadioGroup.OnCheckedChangeListener  {
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -22,6 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.tabList = resources.getStringArray(R.array.main_tab)
         binding.viewPager = binding.mainViewPager
         binding.pagerAdapter = MainPagerAdapter(this)
+        binding.onCheckedChangedListener = this
 
         binding.mainTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -43,10 +48,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
-    override fun onClick(v: View?) {
+    override fun onClick(v: View) {
 
+    }
+
+    override fun onCheckedChanged(group: RadioGroup, checkedId: Int) {
+        when (checkedId) {
+            R.id.accuracy_radio_button -> {
+                Log.d("filter", "정확도순")
+                viewModel.filter.value = ACCURACY
+            }
+            R.id.recent_radio_button -> {
+                Log.d("filter", "최신순")
+                viewModel.filter.value = RECENCY
+            }
+        }
     }
 
 

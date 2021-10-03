@@ -5,7 +5,6 @@
         <variable name="onClick" type="android.view.View.OnClickListener" />
         <variable name="blogListAdapter" type="com.c0de_h0ng.kakaosearch.ui.scene.main.adapter.BlogListAdapter" />
         <variable name="listTouch" type="com.c0de_h0ng.kakaosearch.common.recyclerview.RecyclerTouchListener" />
-        <variable name="onCheckedChangedListener" type="android.widget.RadioGroup.OnCheckedChangeListener" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -19,15 +18,7 @@
             android:layout_marginBottom="50dp"
             android:orientation="vertical">
 
-            <com.c0de_h0ng.kakaosearch.ui.component.RadioContent
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:radioLeftContent="@string/accuracy"
-                app:radioRightContent="@string/recent"
-                radio_checked_changed_listener="@{onCheckedChangedListener}"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="15dp"/>
+
 
             <!--블로그-->
             <com.c0de_h0ng.kakaosearch.ui.component.IntegrateSearchContent

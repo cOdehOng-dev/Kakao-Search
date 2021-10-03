@@ -7,6 +7,4 @@
     <string name="recent">최신순</string>
     <string name="blog">블로그</string>
 
-    <string name="html_content" translatable="false"><![CDATA[%s]]></string>
-
 </resources>
