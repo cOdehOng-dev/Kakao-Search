@@ -6,5 +6,6 @@
     <string name="accuracy">정확도순</string>
     <string name="recent">최신순</string>
     <string name="blog">블로그</string>
+    <string name="search_hint">검색어를 입력해주세요.</string>
 
 </resources>

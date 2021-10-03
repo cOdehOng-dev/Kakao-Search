@@ -3,6 +3,7 @@ package com.c0de_h0ng.kakaosearch.base
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +36,13 @@ abstract class BaseActivity<T : ViewDataBinding> constructor(@LayoutRes private 
 
     override fun onClick(v: View) {
 
+    }
+
+    open fun hideKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        currentFocus?.let {
+            imm.hideSoftInputFromWindow(it.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
+        }
     }
 
     fun setFont(font: Int, v: TextView) {

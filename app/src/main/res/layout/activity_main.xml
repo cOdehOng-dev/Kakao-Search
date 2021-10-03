@@ -9,6 +9,7 @@
         <variable name="viewPager" type="androidx.viewpager2.widget.ViewPager2" />
         <variable name="pagerAdapter" type="com.c0de_h0ng.kakaosearch.ui.scene.main.adapter.MainPagerAdapter" />
         <variable name="onCheckedChangedListener" type="android.widget.RadioGroup.OnCheckedChangeListener" />
+        <variable name="onEditorActionListener" type="android.widget.TextView.OnEditorActionListener" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -50,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
-                        android:hint="검색어를 입력해주세요."
+                        android:hint="@string/search_hint"
                         style="@style/KakaoEditTextStyle"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="20dp"
@@ -59,27 +60,37 @@
                         android:layout_marginBottom="15dp"
                         android:inputType="text"
                         android:imeOptions="actionSearch"
-                        android:maxLines="1"/>
+                        android:maxLines="1"
+                        editor_action="@{onEditorActionListener}"/>
 
                 </LinearLayout>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/main_tab"
-                style="@style/MainTab"
-                tab_list="@{tabList}"
-                view_pager="@{viewPager}"
-                pager_adapter="@{pagerAdapter}"/>
-
-            <View
+            <LinearLayout
+                android:id="@+id/tab_content"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/gray_eb"/>
-            
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/main_tab"
+                    style="@style/MainTab"
+                    tab_list="@{tabList}"
+                    view_pager="@{viewPager}"
+                    pager_adapter="@{pagerAdapter}"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/gray_eb"/>
+
+            </LinearLayout>
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
+            android:id="@+id/search_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

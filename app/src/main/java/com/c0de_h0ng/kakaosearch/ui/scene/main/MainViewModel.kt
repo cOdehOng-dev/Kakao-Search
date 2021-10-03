@@ -19,9 +19,10 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: KakaoSearchRepository) : ViewModel() {
 
+    val searchWord = MutableLiveData("")
     val filter = MutableLiveData(ACCURACY)
 
-
+    //블로그
     private val _mainBlogModel = MutableLiveData<BlogModel>()
     val mainBlogModel: LiveData<BlogModel>
         get() = _mainBlogModel

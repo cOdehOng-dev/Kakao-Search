@@ -14,7 +14,7 @@ import com.c0de_h0ng.kakaosearch.databinding.BlogListItemBinding
 /**
  * Created by c0de_h0ng on 2021/10/03.
  */
-class BlogListAdapter constructor(blogList: ArrayList<BlogContent>) : BaseListAdapter<BaseListHolder<BlogListItemBinding, BlogContent>, BlogContent>(blogList) {
+class BlogListAdapter constructor(blogList: ArrayList<BlogContent>, private val isMain: Boolean = false) : BaseListAdapter<BaseListHolder<BlogListItemBinding, BlogContent>, BlogContent>(blogList) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseListHolder<BlogListItemBinding, BlogContent> {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.blog_list_item, parent, false)
@@ -32,6 +32,14 @@ class BlogListAdapter constructor(blogList: ArrayList<BlogContent>) : BaseListAd
 
     override fun onBindViewHolder(holder: BaseListHolder<BlogListItemBinding, BlogContent>, position: Int) {
         holder.bind(arrayList[position])
+    }
+
+    override fun getItemCount(): Int {
+        return if (isMain && super.getItemCount() > 5) {
+            5
+        } else {
+            super.getItemCount()
+        }
     }
 
 //    private fun compareSearchWord(binding: BrandSearchListItemBinding?, autoCompleteWord: String?) {

@@ -2,6 +2,7 @@
 <resources>
     <string-array name="main_tab">
         <item>통합</item>
-        <item>사진피드</item>
+        <item>블로그</item>
+        <item>카페</item>
     </string-array>
 </resources>

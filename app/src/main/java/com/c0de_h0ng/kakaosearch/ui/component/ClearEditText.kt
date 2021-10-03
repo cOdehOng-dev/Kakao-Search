@@ -16,7 +16,7 @@ import com.c0de_h0ng.kakaosearch.R
 /**
  * Created by c0de_h0ng on 2021/10/02.
  */
-internal class ClearEditText : AppCompatEditText, TextWatcher, View.OnTouchListener, View.OnFocusChangeListener {
+class ClearEditText : AppCompatEditText, TextWatcher, View.OnTouchListener, View.OnFocusChangeListener {
 
     private lateinit var clearDrawable: Drawable
     private var mFocusChangeListener: OnFocusChangeListener? = null

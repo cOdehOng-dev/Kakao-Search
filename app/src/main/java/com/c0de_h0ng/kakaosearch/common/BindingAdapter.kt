@@ -1,10 +1,13 @@
 package com.c0de_h0ng.kakaosearch.common
 
 import android.graphics.drawable.Drawable
+import android.text.TextWatcher
 import android.view.View
 import android.view.View.GONE
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -110,6 +113,19 @@ object BindingAdapter {
                 }
             })
             .into(imageView)
+    }
+
+    @BindingAdapter(value = ["editor_action", "focus_change", "text_watcher"], requireAll = false)
+    @JvmStatic
+    fun bindEditTextListener(
+        editText: EditText,
+        onEditorActionListener: TextView.OnEditorActionListener?,
+        onFocusChangeListener: View.OnFocusChangeListener?,
+        textWatcher: TextWatcher?
+    ) {
+        onEditorActionListener?.let { editText.setOnEditorActionListener(it) }
+        onFocusChangeListener?.let { editText.onFocusChangeListener = it }
+        textWatcher?.let { editText.addTextChangedListener(it) }
     }
 
 }
