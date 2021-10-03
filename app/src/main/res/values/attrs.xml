@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RadioContent">
+        <attr name="radioLeftContent" format="reference|string"/>
+        <attr name="radioRightContent" format="reference|string"/>
+    </declare-styleable>
+
+    <declare-styleable name="IntegrateSearchContent">
+        <attr name="integrateSearchTitle" format="reference|string"/>
+        <attr name="integrateSearchButtonText" format="reference|string"/>
+        <attr name="integrateSearchButtonTag" format="reference|integer"/>
+    </declare-styleable>
+</resources>

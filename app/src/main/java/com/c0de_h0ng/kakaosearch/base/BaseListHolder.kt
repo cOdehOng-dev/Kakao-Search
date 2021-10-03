@@ -10,6 +10,7 @@ abstract class BaseListHolder<T : ViewDataBinding?, S>(val dataBinding: T?) : Re
 
     fun bind(data: S?) {
         setDataBindingWithData(data)
+        dataBinding?.executePendingBindings()
     }
 
     abstract fun setDataBindingWithData(data: S?)

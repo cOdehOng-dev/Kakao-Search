@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RadioGroup
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radio_group"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -9,14 +10,13 @@
         android:id="@+id/accuracy_radio_button"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        style="@style/KakaoRegularFont"
         android:button="@null"
         android:background="@drawable/filter_radio"/>
 
     <TextView
+        android:id="@+id/tv_left_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="정확순"
         android:textSize="14dp"
         android:textColor="@color/black"
         style="@style/KakaoRegularFont"
@@ -28,14 +28,13 @@
         android:id="@+id/recent_radio_button"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        style="@style/KakaoRegularFont"
         android:button="@null"
         android:background="@drawable/filter_radio"/>
 
     <TextView
+        android:id="@+id/tv_right_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="최신순"
         android:textSize="14dp"
         android:textColor="@color/black"
         style="@style/KakaoRegularFont"

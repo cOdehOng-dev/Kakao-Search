@@ -12,4 +12,7 @@ object Constants {
     const val WRITE_TIMEOUT: Long = 10
     const val READ_TIMEOUT: Long = 10
 
+    const val BLOG_MORE = 1
+    const val CAFE_MORE = 2
+
 }

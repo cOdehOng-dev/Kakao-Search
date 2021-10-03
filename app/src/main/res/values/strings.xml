@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">KakaoSearch</string>
-
+    <string name="app_name">카카오 api 검색</string>
     <string name="kakao_app_key">1ebc5e46213c3b080908c568d561051d</string>
+
+    <string name="more_blog">블로그 더보기</string>
+    <string name="accuracy">정확도순</string>
+    <string name="recent">최신순</string>
+    <string name="blog">블로그</string>
+
+    <string name="html_content" translatable="false"><![CDATA[%s]]></string>
+
 </resources>

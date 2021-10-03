@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="blogContent" type="com.c0de_h0ng.kakaosearch.data.blog.BlogContent" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/blog_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:textColor="@color/blue"
+            android:maxLines="2"
+            android:ellipsize="end"
+            style="@style/KakaoRegularFont"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:maxLines="3"
+            android:ellipsize="end"
+            style="@style/KakaoRegularFont"
+            android:layout_below="@id/tv_title"
+            android:layout_toStartOf="@id/img_thumbnail"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_blog_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{blogContent.blogName}"
+            android:textSize="13dp"
+            android:textColor="@color/gray_88"
+            android:maxLines="1"
+            android:maxLength="20"
+            android:ellipsize="end"
+            style="@style/KakaoRegularFont"
+            app:layout_constraintTop_toBottomOf="@id/tv_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/img_thumbnail"
+            android:layout_below="@id/tv_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/img_thumbnail"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="날짜"
+            android:textSize="13dp"
+            android:textColor="@color/gray_88"
+            android:maxLines="3"
+            android:ellipsize="end"
+            style="@style/KakaoRegularFont"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_blog_name"
+            app:layout_constraintEnd_toStartOf="@id/img_thumbnail"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/tv_blog_name"
+            android:layout_toStartOf="@id/img_thumbnail"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="5dp"/>
+
+        <ImageView
+            android:id="@+id/img_thumbnail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/tv_title"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            glide_radius_img_url="@{blogContent.thumbnail}"
+            corner_radius="@{10}"/>
+
+    </RelativeLayout>
+
+</layout>
+

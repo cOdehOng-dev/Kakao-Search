@@ -2,22 +2,23 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="onClick" type="android.view.View.OnClickListener" />
-        <variable name="blogListAdapter" type="com.c0de_h0ng.kakaosearch.ui.scene.main.adapter.BlogListAdapter" />
-        <variable name="listTouch" type="com.c0de_h0ng.kakaosearch.common.recyclerview.RecyclerTouchListener" />
         <variable name="onCheckedChangedListener" type="android.widget.RadioGroup.OnCheckedChangeListener" />
     </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/fadeScrollView">
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:overScrollMode="never"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="50dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
 
             <com.c0de_h0ng.kakaosearch.ui.component.RadioContent
                 android:layout_width="match_parent"
@@ -25,27 +26,14 @@
                 app:radioLeftContent="@string/accuracy"
                 app:radioRightContent="@string/recent"
                 radio_checked_changed_listener="@{onCheckedChangedListener}"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="15dp"/>
 
             <!--블로그-->
-            <com.c0de_h0ng.kakaosearch.ui.component.IntegrateSearchContent
-                android:id="@+id/blog_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:integrateSearchTitle="@string/blog"
-                app:integrateSearchButtonTag="@{1}"
-                app:integrateSearchButtonText="@string/more_blog"
-                integrate_search_content_click_listener="@{onClick}"
-                integrate_search_content_list_touch="@{listTouch}"
-                integrate_search_content_list_adapter="@{blogListAdapter}"/>
-
-            <!--카페-->
-
-
-
-
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
         </LinearLayout>

@@ -8,6 +8,8 @@ import com.c0de_h0ng.kakaosearch.common.Constants.KAKAO_REST_API_KEY
 import com.c0de_h0ng.kakaosearch.common.Constants.READ_TIMEOUT
 import com.c0de_h0ng.kakaosearch.common.Constants.WRITE_TIMEOUT
 import com.c0de_h0ng.kakaosearch.common.PrettyHttpLogging
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,6 +38,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideGson(): Gson {
+        val gsonBuilder = GsonBuilder()
+        return gsonBuilder.create()
+    }
+
+    @Provides
+    @Singleton
     fun provideOkHttp(cache: Cache): OkHttpClient {
         val interceptor = HttpLoggingInterceptor(PrettyHttpLogging())
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -45,7 +54,7 @@ object NetworkModule {
             .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor { chain ->
                 chain.proceed(chain.request().newBuilder().apply {
-                    addHeader("Authorization: ", KAKAO_REST_API_KEY)
+                    addHeader("Authorization", KAKAO_REST_API_KEY)
                 }.build())
             }
             .addInterceptor(interceptor)
@@ -57,9 +66,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .build()
