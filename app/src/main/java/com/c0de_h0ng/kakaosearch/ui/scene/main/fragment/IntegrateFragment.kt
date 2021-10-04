@@ -11,10 +11,12 @@ import com.c0de_h0ng.kakaosearch.R
 import com.c0de_h0ng.kakaosearch.base.BaseFragment
 import com.c0de_h0ng.kakaosearch.common.Constants.BLOG_MORE
 import com.c0de_h0ng.kakaosearch.common.eventbus.EventBusProvider
+import com.c0de_h0ng.kakaosearch.common.eventbus.ResetContentEvent
 import com.c0de_h0ng.kakaosearch.common.eventbus.SelectMoreButtonEvent
 import com.c0de_h0ng.kakaosearch.databinding.IntegrateFragmentBinding
 import com.c0de_h0ng.kakaosearch.ui.scene.main.MainViewModel
 import com.c0de_h0ng.kakaosearch.ui.scene.main.adapter.BlogListAdapter
+import com.squareup.otto.Subscribe
 
 /**
  * Created by c0de_h0ng on 2021/10/03.
@@ -23,14 +25,24 @@ class IntegrateFragment : BaseFragment<IntegrateFragmentBinding>(R.layout.integr
 
     private val viewModel: MainViewModel by activityViewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBusProvider.getInstance().register(this)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding.onClick = this
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        EventBusProvider.getInstance().unregister(this)
+    }
+
     override fun observeViewModel() {
-        viewModel.mainBlogModel.observe(this) {
+        viewModel.integrateBlogModel.observe(this) {
             if (it.blogContentList.isNotEmpty()) {
                 binding.blogListAdapter?.refreshList(it.blogContentList, true)
                     ?: run {
@@ -50,7 +62,7 @@ class IntegrateFragment : BaseFragment<IntegrateFragmentBinding>(R.layout.integr
 
         viewModel.searchWord.observe(this) {
             if (it.isNotEmpty()) {
-                integrateApiCall(viewModel.searchWord.value!!, it)
+                integrateApiCall(it, viewModel.filter.value!!)
             }
         }
 
@@ -58,12 +70,11 @@ class IntegrateFragment : BaseFragment<IntegrateFragmentBinding>(R.layout.integr
             if (viewModel.searchWord.value!!.isNotEmpty()) {
                 integrateApiCall(viewModel.searchWord.value!!, it)
             }
-
         }
     }
 
     private fun integrateApiCall(searchWord: String, filter: String) {
-        viewModel.blogSearch(searchWord, filter, 1, 6) //블로그 호출
+        viewModel.integrateBlogSearch(searchWord, filter) //블로그 호출
     }
 
     override fun onClick(v: View) {
@@ -75,6 +86,11 @@ class IntegrateFragment : BaseFragment<IntegrateFragmentBinding>(R.layout.integr
                 }
             }
         }
+    }
+
+    @Subscribe
+    fun resetContentEvent(event: ResetContentEvent) {
+        binding.blogListAdapter?.clear()
     }
 
 

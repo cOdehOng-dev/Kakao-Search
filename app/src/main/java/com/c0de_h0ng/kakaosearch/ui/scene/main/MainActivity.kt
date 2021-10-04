@@ -1,6 +1,8 @@
 package com.c0de_h0ng.kakaosearch.ui.scene.main
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -18,6 +20,7 @@ import com.c0de_h0ng.kakaosearch.base.BaseActivity
 import com.c0de_h0ng.kakaosearch.common.Constants.ACCURACY
 import com.c0de_h0ng.kakaosearch.common.Constants.RECENCY
 import com.c0de_h0ng.kakaosearch.common.eventbus.EventBusProvider
+import com.c0de_h0ng.kakaosearch.common.eventbus.ResetContentEvent
 import com.c0de_h0ng.kakaosearch.common.eventbus.SelectMoreButtonEvent
 import com.c0de_h0ng.kakaosearch.databinding.ActivityMainBinding
 import com.c0de_h0ng.kakaosearch.ui.scene.main.adapter.MainPagerAdapter
@@ -26,15 +29,17 @@ import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), RadioGroup.OnCheckedChangeListener, TextView.OnEditorActionListener  {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), RadioGroup.OnCheckedChangeListener, TextView.OnEditorActionListener, TextWatcher  {
 
     private val viewModel: MainViewModel by viewModels()
 
     override fun bindingProperty() {
         binding.onCheckedChangedListener = this
         binding.onEditorActionListener = this
+        binding.searchWordTextWatcher = this
         binding.tabList = resources.getStringArray(R.array.main_tab)
         binding.viewPager = binding.mainViewPager
+
         binding.pagerAdapter = MainPagerAdapter(this)
 
         binding.mainTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -80,18 +85,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     override fun onCheckedChanged(group: RadioGroup, checkedId: Int) {
         when (checkedId) {
             R.id.accuracy_radio_button -> {
-                Log.d("filter", "정확도순")
                 viewModel.filter.value = ACCURACY
             }
             R.id.recent_radio_button -> {
-                Log.d("filter", "최신순")
                 viewModel.filter.value = RECENCY
             }
         }
+        viewModel.resetPageCount()
     }
 
     override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
         if (v.id == R.id.et_search_word && actionId == EditorInfo.IME_ACTION_SEARCH) {
+            Log.d("scroll page", "reset")
+            viewModel.resetPageCount()
+            EventBusProvider.getInstance().post(ResetContentEvent())
             viewModel.searchWord.value = binding.etSearchWord.text.toString()
             hideKeyboard()
         }
@@ -115,5 +122,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         viewPager.setCurrentItem(index, false)
     }
 
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+    }
+
+    override fun afterTextChanged(s: Editable?) {
+
+    }
 
 }

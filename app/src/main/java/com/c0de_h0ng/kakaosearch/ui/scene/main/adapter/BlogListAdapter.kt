@@ -42,27 +42,4 @@ class BlogListAdapter constructor(blogList: ArrayList<BlogContent>, private val 
         }
     }
 
-//    private fun compareSearchWord(binding: BrandSearchListItemBinding?, autoCompleteWord: String?) {
-//        try {
-//            autoCompleteWord?.let {
-//                val autoCompleteSpan = SpannableString(autoCompleteWord)
-//                val searchWordSpan = SpannableString(searchWord)
-//                for (i in autoCompleteSpan.indices) {
-//                    for (j in searchWordSpan.indices) {
-//                        if (autoCompleteSpan[i].equals(searchWordSpan[j], true)) {
-//                            autoCompleteSpan.setSpan(StyleSpan(Typeface.BOLD), i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-//                            autoCompleteSpan.setSpan(
-//                                ForegroundColorSpan(ContextCompat.getColor(MergeApplication.getMergeAppComponent().context, R.color.black3_a)), i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//                            )
-//
-//                        }
-//                    }
-//                }
-//                binding?.tvBrandName?.text = autoCompleteSpan
-//            }
-//        } catch (e: Exception) {
-//            binding?.tvBrandName?.text = autoCompleteWord
-//        }
-//    }
-
 }

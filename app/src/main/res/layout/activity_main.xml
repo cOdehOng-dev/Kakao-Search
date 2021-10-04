@@ -10,6 +10,7 @@
         <variable name="pagerAdapter" type="com.c0de_h0ng.kakaosearch.ui.scene.main.adapter.MainPagerAdapter" />
         <variable name="onCheckedChangedListener" type="android.widget.RadioGroup.OnCheckedChangeListener" />
         <variable name="onEditorActionListener" type="android.widget.TextView.OnEditorActionListener" />
+        <variable name="searchWordTextWatcher" type="android.text.TextWatcher" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -61,6 +62,7 @@
                         android:inputType="text"
                         android:imeOptions="actionSearch"
                         android:maxLines="1"
+                        text_watcher="@{searchWordTextWatcher}"
                         editor_action="@{onEditorActionListener}"/>
 
                 </LinearLayout>

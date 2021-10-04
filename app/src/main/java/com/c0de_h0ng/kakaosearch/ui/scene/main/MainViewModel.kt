@@ -22,18 +22,52 @@ class MainViewModel @Inject constructor(private val repository: KakaoSearchRepos
     val searchWord = MutableLiveData("")
     val filter = MutableLiveData(ACCURACY)
 
-    //블로그
-    private val _mainBlogModel = MutableLiveData<BlogModel>()
-    val mainBlogModel: LiveData<BlogModel>
-        get() = _mainBlogModel
+    private val _integrateBlogModel = MutableLiveData<BlogModel>()
+    val integrateBlogModel: LiveData<BlogModel>
+        get() = _integrateBlogModel
 
-    fun blogSearch(searchWord: String, filter: String, page: Int, size: Int) {
+    private val _blogModel = MutableLiveData<BlogModel>()
+    val blogModel: LiveData<BlogModel>
+        get() = _blogModel
+
+    private var blogPage = 1
+    fun getBlogPage(): Int = blogPage
+
+    private var isBlogEndPage = false
+    fun isBlogEndPage(): Boolean = isBlogEndPage
+
+    fun resetPageCount() {
+        blogPage = 1
+
+    }
+
+
+    fun integrateBlogSearch(searchWord: String, filter: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                repository.blogSearch(searchWord, filter, page, size,
+                repository.blogSearch(searchWord, filter, 1, 6,
                     onResponse = {
                         if (it.isSuccessful && it.body() != null) {
-                            _mainBlogModel.value = it.body()
+                            _integrateBlogModel.value = it.body()
+                            isBlogEndPage = it.body()!!.page.isEnd
+                        }
+                    },
+                    onFailure = {
+
+                    }
+                )
+            }
+        }
+    }
+
+    fun blogSearch(searchWord: String, filter: String, page: Int) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.blogSearch(searchWord, filter, page, 20,
+                    onResponse = {
+                        if (it.isSuccessful && it.body() != null) {
+                            _blogModel.value = it.body()
+                            blogPage += 1
                         }
                     },
                     onFailure = {
