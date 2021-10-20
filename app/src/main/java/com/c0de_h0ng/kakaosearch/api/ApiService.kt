@@ -1,7 +1,9 @@
 package com.c0de_h0ng.kakaosearch.api
 
 import com.c0de_h0ng.kakaosearch.data.blog.BlogModel
+import com.c0de_h0ng.kakaosearch.data.image.ImageResultModel
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -17,5 +19,13 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("size") size: Int
     ) : Call<BlogModel>
+
+    @GET("v2/search/image")
+    suspend fun imageSearch(
+        @Query("query") searchWord: String,
+        @Query("sort") filter: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ) : Response<ImageResultModel>
 
 }

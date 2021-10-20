@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="main_tab">
-        <item>통합</item>
-        <item>블로그</item>
-        <item>카페</item>
+        <item>검색결과</item>
+        <item>내 보관함</item>
     </string-array>
 </resources>
